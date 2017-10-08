@@ -19,6 +19,17 @@
       name: filebeat
       state: latest
 
+  - name: filebeat setting
+    template:
+      src: filebeat.yml.j2
+      dest: /etc/filebeat/filebeat.yml
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+    register: is_filebeat_setting
+    notify: filebeat restart
+
   always:
   - name: metricbeat common backup settings
     include: backup.yml
